@@ -1,0 +1,64 @@
+
+
+/* mobile css */
+
+@media screen and (max-width: 800px){
+
+    #index-hero h1 {
+        font-size: 6vw;
+    }
+
+nav {
+    justify-content:space-evenly;
+}
+
+nav ul {
+    justify-content: space-evenly;
+    width: unset;
+}
+
+    #index-content {
+        flex-direction: column;
+    }
+.index-car-upgrades {
+
+    order: 2;
+}
+
+.index-car-reviews {
+    order: 1;
+
+
+}
+
+.index-car-reviews {
+    margin: 0;
+}
+
+.index-car-reviews ul {
+    margin-left: 1rem;
+}
+
+.index-upgrade-card > div{
+min-width: unset;
+}
+
+#index-hero-description { 
+    left: 0;
+}
+
+
+#index-hero-image-container img {
+    max-width: 250px;
+}
+.index-car-upgrade-cards {
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: .5rem;
+}
+
+.index-upgrade-card {
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+}
