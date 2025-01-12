@@ -12,7 +12,7 @@
 
 
 * {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Arial', sans-serif;
 }
 
 p, h2 {
@@ -42,10 +42,6 @@ body > div {
   /* height: 90vh; */
   width: 80vw;
   background-color: var(--white-color);
-}
-
-body footer {
-  align-self: self-end;
 }
 
 .siteName a{
@@ -86,7 +82,7 @@ nav ul{
   display: flex;
   justify-content: space-around;
   list-style: none;
-  width: 100vw;
+  width: 100%;
 
 
 
@@ -113,7 +109,6 @@ nav ul li {
   position: relative;
   
 }
-
 
 #index-hero-description {
   position: absolute;
@@ -153,8 +148,8 @@ align-items: stretch;
 
 .index-car-reviews ul, .index-car-reviews li {
   padding: 0;
-  overflow: visible;
-  overflow-wrap: normal;
+  /* overflow: visible; */
+  /* overflow-wrap: normal; */
   
 }
 
@@ -165,7 +160,7 @@ grid-gap: .1rem;
 grid-template-rows: repeat(2, 1fr); */
 flex-direction: row;
 flex-wrap: wrap;
-/* gap: .5rem; */
+gap: .5rem;
 
 }
 
@@ -180,13 +175,12 @@ flex-wrap: wrap;
 .index-upgrade-card > div{
   background-color: var(--secondary-color);
   border: 1px solid black;
-  padding: 0 2.2rem;
   align-self: center;
-  min-width: 9vw;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 60px;
+  width: 100%;
   
 }
 
