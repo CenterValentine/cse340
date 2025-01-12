@@ -33,6 +33,7 @@ nav {
 
 nav ul {
     justify-content: flex-start;
+    padding: 1rem;
     
 }
 
@@ -50,6 +51,7 @@ nav li {
 
 .index-car-reviews li {
     padding: 0;
+    margin: 0;
 }
 
 .index-car-reviews {
