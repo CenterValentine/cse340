@@ -1,3 +1,4 @@
+
 /* ******************************************
  * This server.js file is the primary file of the 
  * application. It is used to control the project.
@@ -10,6 +11,8 @@ const expressLayouts = require("express-ejs-layouts")
 const env = require("dotenv").config()
 const app = express()
 const static = require("./routes/static")
+
+const utilities = require("./")
 
 
 /* ***********************
@@ -28,12 +31,33 @@ app.get("/", function(req, res) {
   res.render("index", {title: "Home"})
 })
 
+app.use(async (req, res, next) => {
+  next({status: 404, message: "Sorry, this page is missing, or you are lost"})
+})
+
+
+/* ***********************
+* Express Error Handler
+* Place after all other middleware
+*************************/
+app.use(async (err, req, res, next) => {
+  let nav = await utilities.getNav()
+  console.error(`Error at: "${req.originalUrl}": ${err.message}`)
+  res.render("errors/error", {
+    title: err.status || 'Server Error',
+    message: err.message,
+    nav
+  })
+})
+
+
 /* ***********************
  * Local Server Information
  * Values from .env (environment) file
  *************************/
 const port = process.env.PORT
 const host = process.env.HOST
+
 
 /* ***********************
  * Log statement to confirm server operation
