@@ -1,12 +1,14 @@
 const invModel = require("../models/inventory-model")
 const Util = {}
 
+
+
 /* ************************
  * Constructs the nav HTML unordered list
  ************************** */
 Util.getNav = async function (req, res, next) {
     let data = await invModel.getClassifications()
-    console.log(data)
+    // console.log(data)
     let list = "<ul>"
     list += '<li><a href="/" title="Home page">Home</a></li>'
     data.rows.forEach((row) => {
@@ -60,14 +62,53 @@ Util.buildClassificationGrid = async function(data){
   }
 
 
+/* **************************************
+* Build the inventory view HTML
+* ************************************ */
+
+Util.buildInventoryGrid = async function(data){
+    let grid
+
+    console.log("data length", data.length)
+    let vehicle = data[0]
+
+    switch (data.length) {
+        case 0:
+            grid = `<p>Sorry, we can't find any matching vehicles could be found.</p>`
+            break
+        case 1:
+            // grid = '<div><h1>' + vehicle.inv_model + ' ' + vehicle.inv_make + '</h1><div class="inv__details">'+ vehicle.inv_model + ' ' + vehicle.inv_make + '</div></div>'
+            grid = `<div>
+            <div class="inv__image">
+                <img src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_color} ${vehicle.inv_make} ${vehicle.inv_model}>
+            </div>
+            <div class="inv__details"> 
+                <h2> ${vehicle.inv_model} ${vehicle.inv_make} details</h2>
+                <div class="inv__details-content">
+                Price: ${vehicle.inv_price}
+                Miles: ${vehicle.inv_miles}
+                Color: ${vehicle.inv_color}
+                Description: ${vehicle.inv_description}
+                </div>
+            </div>
+            </div>`
+            break
+        default:
+            grid = '<p>Sorry, no matching vehicles could be found.</p'
+    }
+    return grid
+
+}
+
 
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for 
  * General Error Handling
  **************************************** */
-const handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch( err=>  {
+Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch( err=>  {
     console.error(err);
     next(err)});
+
 
 module.exports = Util

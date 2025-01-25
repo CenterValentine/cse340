@@ -210,3 +210,15 @@ gap: .5rem;
 .index-upgrade-card > div > img {
 max-height: 50px;
 }
+
+#big-red-button {
+  background-color: red;
+  color: var(--white-color);
+  /* font-weight: bolder; */
+  font-size: .7rem;
+  border-radius: 30px;
+  border: 1px solid black;
+  padding: .4rem ;
+  cursor: pointer;
+  box-shadow: 0 5px 0px black;
+}

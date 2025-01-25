@@ -12,9 +12,9 @@ const env = require("dotenv").config()
 const app = express()
 const static = require("./routes/static")
 const baseController = require("./controllers/baseController")
-const inventoryRoute = require("./routes/inventoryRoute")
-
+const inventoryRoute = require("./routes/inventoryRoute.js")
 const utilities = require("./utilities/index.js")
+const catchErrorsRoute = require("./routes/errorRoute.js")
 
 
 /* ***********************
@@ -29,35 +29,21 @@ app.set("layout", "./layouts/layout") // not at views root - sets layout filespa
  * Routes
  *************************/
 app.use(static)
-app.get("/", baseController.buildHome)
+
+app.get("/", utilities.handleErrors(baseController.buildHome))
+
 app.use("/inv", inventoryRoute)
 
 // app.get("/", utilities.handleErrors((req,res) => 
 //   {res.render("index", {title: "Home"})}
 // ))
 
-
-app.use(async (req, res, next) => {
-  next({status: 404,
-     message: "Sorry, we've had a fender bender... "
-    })
-})
-
-
-/* ***********************
-* Express Error Handler
-* Place after all other middleware
-*************************/
-app.use(async (err, req, res, next) => {
-  let nav = await utilities.getNav();
-  console.error(`Error at: "${req.originalUrl}": ${err.message}`);
-  res.render("errors/error", {
-    title: err.status || 'Server Error',
-    message: err.message,
-    nav
-  })
-})
-
+/* ****************************************
+ * Middleware For Handling Errors
+ * Do not place anything after this.
+ * wrap utilities.handleErrors for General Error Handling
+ **************************************** */
+app.use(catchErrorsRoute);
 
 /* ***********************
  * Local Server Information

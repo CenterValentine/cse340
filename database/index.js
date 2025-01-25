@@ -1,5 +1,16 @@
 const { Pool } = require("pg")
 require("dotenv").config()
+
+function toggleQueryConsole( message, object) {
+  if (false) {
+    console.log(message, {object} )
+  }
+  else {
+    console.log("DB query fired and console is off")
+  }
+
+
+}
 /* ***************
  * Connection Pool
  * SSL Object needed for local testing of app
@@ -21,10 +32,16 @@ module.exports = {
   async query(text, params) {
     try {
       const res = await pool.query(text, params)
-      console.log("executed query", { text })
+      toggleQueryConsole("executed query", { text, params })
+      // console.log("executed query", { text })
+
       return res
     } catch (error) {
-      console.error("error in query", { text })
+      toggleQueryConsole(
+        "error in query",
+        { text, params, error: error.message }
+      )
+      // console.error("error in query", { text })
       throw error
     }
   },
