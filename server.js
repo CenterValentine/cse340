@@ -11,7 +11,8 @@ const expressLayouts = require("express-ejs-layouts")
 const env = require("dotenv").config()
 const app = express()
 const static = require("./routes/static")
-const inventory = require("./routes/inventory")
+const baseController = require("./controllers/baseController")
+const inventoryRoute = require("./routes/inventoryRoute")
 
 const utilities = require("./utilities/index.js")
 
@@ -28,21 +29,12 @@ app.set("layout", "./layouts/layout") // not at views root - sets layout filespa
  * Routes
  *************************/
 app.use(static)
-app.use("/inventory", inventory)
+app.get("/", baseController.buildHome)
+app.use("/inv", inventoryRoute)
 
-app.get("/", utilities.handleErrors((req,res) => 
-  {res.render("index", {title: "Home"})}
-))
-
-app.get("/inventory", inventory
-
-)
-
-app.get('/favicon.ico', (req, res) => {
-  // WWWHHHHYY does this get called??!
-  // console.log("Favicon request detected");
-  res.status(204).end(); // No content
-});
+// app.get("/", utilities.handleErrors((req,res) => 
+//   {res.render("index", {title: "Home"})}
+// ))
 
 
 app.use(async (req, res, next) => {
