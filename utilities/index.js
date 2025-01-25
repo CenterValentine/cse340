@@ -1,8 +1,6 @@
 // const express = require("express");
 
 
-
-
 function getNav(){
     return null
 }

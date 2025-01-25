@@ -11,6 +11,7 @@ const expressLayouts = require("express-ejs-layouts")
 const env = require("dotenv").config()
 const app = express()
 const static = require("./routes/static")
+const inventory = require("./routes/inventory")
 
 const utilities = require("./utilities/index.js")
 
@@ -27,11 +28,15 @@ app.set("layout", "./layouts/layout") // not at views root - sets layout filespa
  * Routes
  *************************/
 app.use(static)
-
+app.use("/inventory", inventory)
 
 app.get("/", utilities.handleErrors((req,res) => 
   {res.render("index", {title: "Home"})}
 ))
+
+app.get("/inventory", inventory
+
+)
 
 app.get('/favicon.ico', (req, res) => {
   // WWWHHHHYY does this get called??!
@@ -42,7 +47,7 @@ app.get('/favicon.ico', (req, res) => {
 
 app.use(async (req, res, next) => {
   next({status: 404,
-     message: "Sorry, this page is missing, or you are lost"
+     message: "Sorry, we've had a fender bender... "
     })
 })
 

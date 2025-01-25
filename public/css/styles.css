@@ -11,6 +11,11 @@
 }
 
 
+#loom-companion-mv3 {
+  display: none !important;
+}
+
+
 * {
   font-family: 'Arial', sans-serif;
 }
@@ -83,13 +88,23 @@ nav ul{
   justify-content: space-around;
   list-style: none;
   width: 100%;
-
-
+  padding: 0;
+  align-items: center;
 
 }
 
 nav ul li {
   width: 100px;
+  text-align: center;
+  cursor: pointer;
+}
+
+
+
+nav ul a:hover {
+  background-color: var(--secondary-color);
+  padding: .4rem 0 ;
+  
 }
 
 #index-hero-image-container {
