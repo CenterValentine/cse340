@@ -39,6 +39,10 @@ body {
 
 }
 
+footer {
+  padding-top: 2rem;
+}
+
 body > div {
   border: 2px solid var(--secondary-color);
   border-radius: 5px;
@@ -90,20 +94,27 @@ nav ul{
   width: 100%;
   padding: 0;
   align-items: center;
-
+  text-decoration: none;
 }
 
 nav ul li {
   width: 100px;
   text-align: center;
   cursor: pointer;
+  font-size: 1rem;
+  color: var(--white-color);
 }
 
 
+nav a {
+  text-decoration: none;
+  color: var(--white-color);
+}
 
-nav ul a:hover {
+nav ul li:hover {
   background-color: var(--secondary-color);
   padding: .4rem 0 ;
+
   
 }
 
@@ -221,4 +232,90 @@ max-height: 50px;
   padding: .4rem ;
   cursor: pointer;
   box-shadow: 0 5px 0px black;
+}
+
+#inv-display {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+}
+
+#inv-display li {
+  margin: .5rem;
+  background-color: var(--white-color);
+}
+
+#inv-display li > div {
+  border: 1px solid black;
+  border-radius: 8px;
+  height: 300px;
+  width: 300px;
+  overflow: hidden;
+}
+
+#inv-display a {
+  text-decoration: none;
+
+}
+.class_lists__image img {
+  width: 300px;
+  height: 200px;
+  object-fit:fill;
+  overflow: hidden;
+  /* max-width: 200px; */
+  /* max-height: 400px; */
+}
+
+#inv-display span {
+  margin: .2rem .2rem;
+}
+
+#inv-display .namePrice {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#inv_page__detail {
+ display: flex;
+  flex-direction: column;
+}
+
+#inv_page__detail > div {
+  margin: 1rem;
+}
+
+#inv_page__detail img {
+  border-radius: 8px;
+  border: .5px solid black;
+  /* fuzzy shadow bottom right */
+  box-shadow: 4px 5px 5px black;
+  transform: scale(1.05);
+  transition: transform 1s;
+      width: 50vw;
+    height: 25vw
+}
+
+.inv__details {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+}
+
+.inv__details-content {
+  list-style: none;
+}
+
+.inv__details-content li {
+  margin: .5rem 0;
+  font-size: 1.1rem;
+}
+
+.inv__details-content li span:nth-child(1){
+font-weight: bolder;
+}
+
+.inv__details-content_description {
+
 }

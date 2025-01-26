@@ -1,6 +1,45 @@
+@media screen and (max-width: 1350px){
+
+    #inv_page__detail img {
+        width: 70vw;
+        height: 40vw;
+        transform: scale(1.0);
+        transition: transform 1s
+      }
+    
+}
 
 
 /* mobile css */
+@media screen and (max-width: 850px){
+
+    #inv-display {
+        padding: 0;
+        justify-content: center;
+    }
+   
+#inv-display li > div {
+    border: 1px solid black;
+    border-radius: 8px;
+    height: 300px;
+    width: 400px;
+  }
+
+  .class_lists__image img {
+    width: 400px;
+    height: 200px;
+}
+
+#inv_page__detail img {
+    width: 70vw;
+    height: 50vw;
+    transform: scale(1.0);
+    transition: transform 1s
+  }
+
+
+}
+
 
 @media screen and (max-width: 600px){
 
@@ -91,4 +130,12 @@ min-width: unset;
     justify-content: flex-end;
     align-items: flex-start;
 }
+
+#inv_page__detail img {
+    width: 80vw;
+    height: 50vw;
+    transform: scale(1.0);
+    transition: transform 1s
+  }
 }
+
