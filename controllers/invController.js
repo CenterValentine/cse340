@@ -28,7 +28,7 @@ invCont.buildByClassificationId = async function (req, res, next) {
 }
 
 invCont.buildByInventoryId = async function (req, res, next) {
-    console.log("in buildByInventoryId")
+    console.log('in buildByInventoryId')
     const inventory_id = req.params.inventoryId     
     const data = await invModel.getInventoryByInventoryId(inventory_id)
     // if no data, skip this controller
@@ -38,7 +38,7 @@ invCont.buildByInventoryId = async function (req, res, next) {
     let nav = await utilities.getNav()
 
     const className = `${vehicle.inv_year} ${vehicle.inv_model} ${vehicle.inv_make}`
-    res.render("./inventory/details.ejs", {
+    res.render('./inventory/details.ejs', {
         title: className,
         nav,
         grid,

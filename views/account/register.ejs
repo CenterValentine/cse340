@@ -1,0 +1,39 @@
+<div>
+    <div>
+        <h1><%-title-%></h1>
+        <%- messages() %>
+    </div>
+    <div>
+        <form  action="/account/register" method="post" id="account_registration">
+            <fieldset>
+                <div class="form_part">
+                    <label>
+                        <p>First name</p>
+                        <input name="account_firstname" type="text" required>
+                    </label>
+                </div>
+                <div class="form_part">
+                    <label>
+                        <p>Last name</p>
+                        <input name="account_lastname" type="text" required>
+                    </label>
+                </div>
+                <div class="form_part">
+                    <label>
+                        <p>Email address</p>
+                        <input name="account_email" type="email" required>
+                    </label>
+                </div>
+                <div class="form_part">
+                    <label>
+                        <p>Password</p>
+                        <input name="account_password" id="password" type="password" required pattern="{12}"><br><span id="showPass">Show Password</span>
+                    </label>
+                </div>
+                <button class="register_button">Register</button>
+
+            </fieldset>
+        </form>
+
+    </div>
+</div>

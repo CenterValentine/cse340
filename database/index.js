@@ -2,7 +2,7 @@ const { Pool } = require("pg")
 require("dotenv").config()
 
 function toggleQueryConsole( message, object) {
-  if (false) {
+  if (true) {
     console.log(message, {object} )
   }
   else {

@@ -21,13 +21,13 @@
 #inv-display li > div {
     border: 1px solid black;
     border-radius: 8px;
-    height: 300px;
+    height: 275px;
     width: 400px;
   }
 
   .class_lists__image img {
     width: 400px;
-    height: 200px;
+    height: 210px;
 }
 
 #inv_page__detail img {
@@ -72,12 +72,12 @@ nav {
 
 nav ul {
     justify-content: flex-start;
-    padding: 1rem;
+    /* padding: 1rem; */
     
 }
 
-nav li {
-    font-size: .7rem;
+nav li a {
+    font-size: .7em;
 }
 
     #index-content {
@@ -137,5 +137,20 @@ min-width: unset;
     transform: scale(1.0);
     transition: transform 1s
   }
+
+.inv__image, .inv__details h2, main > h1 {
+    align-self: center;
+}
+
+#inv-display li > div {
+    width: 350px;
+}
+    
+.class_lists__image img {
+    width: 100%;
+height: 20vh;
+object-fit: stretch;
+
+}
 }
 
