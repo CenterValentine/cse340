@@ -2,7 +2,6 @@ const invModel = require("../models/inventory-model")
 const Util = {}
 
 
-
 /* ************************
  * Constructs the nav HTML unordered list
  ************************** */
@@ -86,10 +85,8 @@ Util.buildClassificationGrid = async function(data){
 
 Util.buildInventoryGrid = async function(data){
     let grid
-
     console.log("data length", data.length)
     let vehicle = data[0]
-
     switch (data.length) {
         case 0:
             grid = `<p>Sorry, we can't find any matching vehicles could be found.</p>`
@@ -99,17 +96,14 @@ Util.buildInventoryGrid = async function(data){
             grid = `
             <div id="inv_page__detail">
               <div class="inv__image">
-                <img src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_color} ${vehicle.inv_make} ${vehicle.inv_model}">
-              </div>
+                <img src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_color} ${vehicle.inv_make} ${vehicle.inv_model}"></div>
               <div class="inv__details"> 
                 <h2> ${vehicle.inv_model} ${vehicle.inv_make} details</h2>
-
                 <ul class="inv__details-content">
                   <li><span>Price:</span> <span>$ ${vehicle.inv_price.toLocaleString()}</span></li>
                   <li><span>Miles:</span> <span>${vehicle.inv_miles.toLocaleString()}</span></li>
                  <li><span>Color:</span> <span>${vehicle.inv_color}</span></li>
-                 <li class="inv__details-content_description" ><span>Description: </span><span>${vehicle.inv_description}</span></li>
-</ul>
+                 <li class="inv__details-content_description" ><span>Description: </span><span>${vehicle.inv_description}</span></li></ul>
               </div>
             </div>`
             break
