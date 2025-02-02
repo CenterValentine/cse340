@@ -1,0 +1,9 @@
+<!-- management view -->
+<% if (title) { %>
+    <h1>
+        <%= title %>
+    </h1>
+    <%- messages() %>
+        <a href="/inv/addClass"><p>Add classification</p></a>
+        <a href="/inv/addInv"><p>Add Inventory</p></a>
+        <% } else { res.redirect('/') } %>

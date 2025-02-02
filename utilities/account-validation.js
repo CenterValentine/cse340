@@ -32,7 +32,7 @@ body("account_email")
 .withMessage("A valid email is required.")
 .custom(async (account_email) => {
   const emailExists = await accountModel.checkExistingEmail(account_email)
-  if (emailExists){
+  if (emailExists.rowCount){
     throw new Error("Email exists. Please log in or use different email")
   }
 }),
@@ -88,6 +88,7 @@ validate.checkRegData = async (req, res, next) => {
     const { account_firstname, account_lastname, account_email } = req.body
     let errors = []
     errors = validationResult(req)
+    console.log("errors:", errors)
     if (!errors.isEmpty()) {
       let nav = await utilities.getNav()
       res.render("account/register", {

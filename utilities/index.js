@@ -1,12 +1,12 @@
 const invModel = require("../models/inventory-model")
 const Util = {}
 
-
 /* ************************
  * Constructs the nav HTML unordered list
  ************************** */
 Util.getNav = async function (req, res, next) {
     let data = await invModel.getClassifications()
+
     // console.log(data)
     let list = "<ul>"
     list += '<li><a href="/" title="Home page">Home</a></li>'
@@ -26,6 +26,25 @@ Util.getNav = async function (req, res, next) {
     return list
   }
   
+/* **************************************
+* Constructs the classDrop HTML select dropdown menu
+* ************************************ */
+Util.buildClassificationDropdown = async function(classification_id){
+  let selectedOption = classification_id
+  let data = await invModel.getClassifications()
+  console.log("buildClassificationDropdown data", data)
+  let classDropOptions = ''
+  data.rows.forEach((row)=>{
+    if(row.classification_id == selectedOption){
+      classDropOptions += `<option value="${row.classification_id}" selected>${row.classification_name}</option>`
+    } else {
+    classDropOptions += `<option value="${row.classification_id}">${row.classification_name}</option>`}
+  })
+  console.log("classDrop", classDropOptions)
+  return classDropOptions
+}
+
+
 
 /* **************************************
 * Build the classification view HTML
@@ -79,6 +98,8 @@ Util.buildClassificationGrid = async function(data){
   }
 
 
+
+
 /* **************************************
 * Build the inventory view HTML
 * ************************************ */
@@ -113,6 +134,8 @@ Util.buildInventoryGrid = async function(data){
     return grid
 
 }
+
+
 
 
 /* ****************************************

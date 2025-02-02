@@ -6,6 +6,11 @@
         transform: scale(1.0);
         transition: transform 1s
       }
+
+
+  fieldset {
+    max-width: 300px;
+}
     
 }
 
@@ -37,6 +42,12 @@
     transition: transform 1s
   }
 
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
 }
 

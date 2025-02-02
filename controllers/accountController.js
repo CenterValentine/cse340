@@ -50,7 +50,7 @@ try {
   })
 }
 
-const regResult = await accountModel.registerAccount(account_firstname, account_lastname, account_email, hashedPassword);
+const regResult = await accountModel.registerAccount(account_firstname, account_lastname, account_email, hashedPassword)
 
 if (regResult) {
     req.flash('notice', `Congratulations, you\'re registered ${account_firstname}.  Please log in.`)
@@ -64,10 +64,7 @@ if (regResult) {
         title:"Registration",
         nav,})
 }
-
 }
-
-
 
 /* ****************************************
 *  Process Login
@@ -75,9 +72,5 @@ if (regResult) {
 async function loginAccount(req,res) {
 
 }
-
-
-
-
 
 module.exports = {buildLogin, buildRegister, registerAccount, buildRegister}

@@ -336,49 +336,57 @@ font-weight: bolder;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  color: var(--white-color);
+  width: 100%;
+  margin-bottom: .75rem;
   /* margin: 1rem; */
   /* align-items: flex-start; */
 }
 
+
 fieldset {
   padding: 1rem;
-  max-width: 20%;
+  max-width: 25%;
+
   display: flex;
   flex-direction: column;
   background-color: var(--primary-color);
-  border: 1px solid black;
-}
-
-fieldset, p {
   color: var(--white-color);
-  margin: .4rem 0;
-  text-wrap: none;
-}
-
-.login_signup_message {
-  margin-left: 16%;
-  text-wrap: none;
-}
-
-fieldset input {
-  width: 200px;
   border: 1px solid black;
+  text-wrap: none;
+
+}
+
+
+input, select {
+  width: 95%;
+  height: 1.5rem;
+  border: 1px solid black;
+}
+
+fieldset h2 {
+  color: var(--white-color);
+  margin: 1rem 0;
 }
 
 fieldset button {
   margin: 1rem 0;
-  max-width: 75px;
+  /* max-width: 100px; */
   border-radius: 12px;
-  /* align-self: center; */
-  margin-left: 30%;
+  align-self: center;
   cursor: pointer;
-  padding: .3rem .5rem;
-  font-size: small;
+  padding: .5rem .7rem;
+  font-size: medium;
   background-color: var(--white-color);
   color: var(--black-color);
   border: 1px solid black;
 }
 
+
+.login_signup_message {
+  margin-left: 16%;
+  text-wrap: none;
+}
 
 
 fieldset a {
@@ -404,3 +412,19 @@ input:required:invalid, input:focus:invalid {
   background-repeat: no-repeat;
   }
  
+label {
+  width: 100%;
+}
+
+fieldset span{
+  /* margin-top: .4rem; */
+  margin: .4rem 0;
+}
+
+.form_instruct, .form_direct{
+  display: block;
+}
+
+fieldset > div > label > span:nth-child(5){
+  font-size: .7rem;
+}

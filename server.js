@@ -17,7 +17,6 @@ const bodyParser = require("body-parser")
 
 const static = require("./routes/static")
 
-
 const catchErrorsRoute = require("./routes/errorRoute.js")
 const baseController = require("./controllers/baseController")
 const utilities = require("./utilities/index.js")
@@ -47,6 +46,10 @@ app.use(bodyParser.json())
 
 app.use(bodyParser.urlencoded({extended: true}))// for parsing application/x-www-form-urlencoded
 
+app.use((req, res, next) => {
+  console.log(`Incoming request: ${req.method} ${req.url}`);
+  next();
+});
 
 
 /* ***********************
@@ -60,7 +63,9 @@ app.set("layout", "./layouts/layout") // not at views root - sets layout filespa
 /* ***********************
  * Routes
  *************************/
+
 app.use(static)
+// app.use((req,res,next) => {console.log("incoming route url: ", req.url)})
 
 app.get("/", utilities.handleErrors(baseController.buildHome))
 

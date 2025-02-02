@@ -15,10 +15,15 @@
                 </div>
                 <div class="form_part">
                     <label>
-                        <p>Password:</p>
-                        <input name="account_password" id="password" type="password" required><br><span id="showPass">Show Password</span>
-                        <span>Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character</span> 
+                        <p>Password</p>
+                        <input name="account_password" id="password" type="password" required
+                            pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"><br><span
+                            id="showPass">Show Password</span>
+                        <!-- <span>Passwords must be at least 12 characters and contain at least 1 number, 1 capital
+                            letter and 1 special character</span> -->
                     </label>
+                </div>
+               <div>
                     <button class="login_button">LOGIN</button>
                     <p class="login_signup_message">No account? <a href="/account/register">Sign-up</a>
                 </div>
