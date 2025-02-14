@@ -32,7 +32,8 @@ body("account_email")
 .withMessage("A valid email is required.")
 .custom(async (account_email) => {
   const emailExists = await accountModel.checkExistingEmail(account_email)
-  if (emailExists.rowCount){
+  console.log('EmailExists: ',emailExists)
+  if (emailExists){
     throw new Error("Email exists. Please log in or use different email")
   }
 }),
@@ -59,11 +60,13 @@ validate.loginRules = () => {
         .trim()
         .isEmail()
         .normalizeEmail() // refer to validator.js docs
-        .withMessage("A valid email is required.")
+        .withMessage("Please check your credentials and try again.")
         .custom(async (account_email) => {
+          console.log("account_email:", account_email)
         const emailExists = await accountModel.checkExistingEmail(account_email)
-        if (emailExists){
-            throw new Error("Email exists. Please log in or use different email")
+
+        if (emailExists.rowCount){
+            throw new Error("Please check your credentials and try again..")
         }
 }),
    // password is required and must be strong password
@@ -77,7 +80,7 @@ validate.loginRules = () => {
      minNumbers: 1,
      minSymbols: 1,
    })
-   .withMessage("Password does not meet requirements."),
+   .withMessage("A valid email or password is required. (Password)"),
     ]
 }
 
@@ -108,16 +111,18 @@ validate.checkLoginData = async (req, res, next) => {
     const { account_email} = req.body
     let error = []
     errors = validationResult(req)
+    // console.log("errors: ", errors)
     if(!errors.isEmpty()){
         let nav = await utilities.getNav()
         res.render("account/login", {
-            errors,
             title: "Login",
             nav,
+            errors,
             account_email,
-            account_password
         })
     }
+    next()
+
 }
   
   module.exports = validate

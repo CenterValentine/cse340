@@ -13,6 +13,7 @@ const app = express()
 const session = require("express-session")
 const pool = require('./database/')
 const bodyParser = require("body-parser")
+const cookieParser = require("cookie-parser")
 
 
 const static = require("./routes/static")
@@ -50,6 +51,11 @@ app.use((req, res, next) => {
   console.log(`Incoming request: ${req.method} ${req.url}`);
   next();
 });
+
+app.use(cookieParser())
+
+app.use(utilities.checkJWTToken)
+
 
 
 /* ***********************

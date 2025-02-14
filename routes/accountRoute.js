@@ -5,7 +5,10 @@ const accountController = require("../controllers/accountController")
 const regValidate = require('../utilities/account-validation')
 
 
-router.get("/login", utilities.handleErrors(accountController.buildLogin))
+router.get("/",
+  utilities.checkLogin,
+  utilities.handleErrors(accountController.buildAccount))
+router.get("/login",utilities.handleErrors(accountController.buildLogin))
 router.get("/register", utilities.handleErrors(accountController.buildRegister))
 // Process the registration data
 router.post(
@@ -15,11 +18,16 @@ router.post(
     utilities.handleErrors(accountController.registerAccount)
   )
 
-router.post(
+  router.post(
     "/login", 
+    (req, res, next) => {
+      console.log("Raw req.body:", req.body);
+      // console.log("Request Body Keys:", Object.keys(req.body));
+      next();
+    },
     regValidate.loginRules(),
     regValidate.checkLoginData,
-    (req, res) => {
-    res.status(200).send('login process')})
+    utilities.handleErrors(accountController.accountLogin)
+  )
 
 module.exports = router;
