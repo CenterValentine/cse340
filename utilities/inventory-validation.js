@@ -128,6 +128,11 @@ if(!errors.isEmpty()){
 next()
 }
 
+
+
+  /* ******************************
+ * Check inventory data and return errors or continue to add
+ * ***************************** */
 validate.checkAddInvData = async (req, res, next) => {
     console.log("in checkAddInvData")
     const {classification_id, inv_make, inv_model, inv_year, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color} = req.body 
@@ -156,5 +161,44 @@ validate.checkAddInvData = async (req, res, next) => {
     }
     next()
     }
+
+
+
+  /* ******************************
+ * Check inventory data updates and return errors or continue to add
+ * ***************************** */
+    validate.checkUpdateData = async (req, res, next) => {
+        console.log("in checkAddInvData")
+        const {inv_id, classification_id, inv_make, inv_model, inv_year, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color} = req.body 
+        const itemName = `${inv_make} ${inv_model}`
+        let errors = []
+        errors = validationResult(req)
+        console.log("errors", errors)
+        if(!errors.isEmpty()){
+            let nav = await utilities.getNav()
+            let classDrop = await utilities.buildClassificationDropdown()
+            res.render("inventory/edit-inventory.ejs",{
+                errors,
+                title: `Edit ${itemName} Inventory`,
+                nav,
+                classDrop,
+                classification_id,
+                inv_make,
+                inv_model,
+                inv_year,
+                inv_image,
+                inv_thumbnail,
+                inv_price,
+                inv_miles,
+                inv_color,
+                
+            })
+            return
+        }
+        next()
+        }
+
+
+        
 
 module.exports = validate

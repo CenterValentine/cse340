@@ -47,7 +47,6 @@ Util.buildClassificationDropdown = async function(classification_id){
 }
 
 
-
 /* **************************************
 * Build the classification view HTML
 * ************************************ */

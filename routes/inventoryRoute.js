@@ -25,4 +25,15 @@ router.post("/addInv",(req,res,next)=>{ console.log("in addInv post"); next()},
 router.get("/type/:classificationId", utilities.handleErrors(invController.buildByClassificationId))
 router.get("/detail/:inventoryId", utilities.handleErrors(invController.buildByInventoryId))
 
+router.get("/getInventory/:classificationId", utilities.handleErrors(invController.getInventoryJSON))
+
+router.get("/edit/:inventoryId", 
+    utilities.handleErrors(invController.buildEditInv))
+router.post("/update/",
+    invValidate.addInvRules(),
+    checkAddInvData,
+
+     utilities.handleErrors(invController.updateEditInv))
+
+
 module.exports = router;
