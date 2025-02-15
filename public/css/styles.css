@@ -26,6 +26,8 @@ p, h2, hr, a {
   padding: 0;
 }
 
+
+
 #index-hero h1, h3, h4 {
   margin: 1rem 0;
   padding: 0;
@@ -434,4 +436,8 @@ fieldset span{
 
 fieldset > div > label > span:nth-child(5){
   font-size: .7rem;
+}
+
+section h2 {
+  margin: 1rem 0;
 }
