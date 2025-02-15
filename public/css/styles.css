@@ -389,6 +389,13 @@ fieldset button {
 }
 
 
+/* disabled button */
+fieldset button:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
+
 fieldset a {
   text-decoration:underline;
   color: var(--secondary-color);

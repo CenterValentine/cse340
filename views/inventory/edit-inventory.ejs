@@ -17,7 +17,7 @@
     </ul>
     <% } %>
 
-        <form action="/inv/update" method="post" id="edit_inv">
+        <form action="/inv/update" method="post" id="updateForm">
             <fieldset>
                 <h2>All fields are required</h2>
                 <div class="form_part">
@@ -89,8 +89,9 @@
                         <input name="inv_color" id="invColor" type="text" value="<%= locals.inv_color %>" required pattern="^\w{1,}$">
                     </label>
                 </div>
-
-                <button type="submit">Update Vehicle</button>
+                        <input name="inv_id" id="invId" type="hidden" value="<%= locals.inv_id%>" required>
+                <button type="submit" disabled>Update Vehicle</button>
             </fieldset>
 
         </form>
+        <script src="../../js/inv-update.js"></script>

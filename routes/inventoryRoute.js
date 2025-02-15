@@ -5,18 +5,24 @@ const invController = require("../controllers/invController")
 const utilities = require("../utilities/index.js")
 const invValidate = require('../utilities/inventory-validation.js')
 
-console.log("inventoryRoute.js accessed")
+router.get("/", utilities.checkLogin,
+    utilities.handleErrors(invController.buildVehicleManager))
 
-router.get("/",utilities.handleErrors(invController.buildVehicleManager))
-
-router.get("/addClass",utilities.handleErrors(invController.buildAddClass))
+router.get("/addClass",
+    utilities.checkLogin,
+    utilities.handleErrors(invController.buildAddClass))
 router.post("/addClass",
+    utilities.checkLogin,
     invValidate.addClassRules(),
     invValidate.checkAddClassData,
     utilities.handleErrors(invController.addClass))
 
-router.get("/addInv",utilities.handleErrors(invController.buildAddInv))
-router.post("/addInv",(req,res,next)=>{ console.log("in addInv post"); next()},
+router.get("/addInv",
+    utilities.checkLogin,
+    utilities.handleErrors(invController.buildAddInv))
+
+router.post("/addInv",
+    utilities.checkLogin,
     invValidate.addInvRules(),
     invValidate.checkAddInvData,
     utilities.handleErrors(invController.addInv))
@@ -27,13 +33,16 @@ router.get("/detail/:inventoryId", utilities.handleErrors(invController.buildByI
 
 router.get("/getInventory/:classificationId", utilities.handleErrors(invController.getInventoryJSON))
 
-router.get("/edit/:inventoryId", 
+
+
+router.get("/edit/:inventoryId",
+    utilities.checkLogin, 
     utilities.handleErrors(invController.buildEditInv))
+
 router.post("/update/",
     invValidate.addInvRules(),
-    checkAddInvData,
-
-     utilities.handleErrors(invController.updateEditInv))
+    invValidate.checkAddInvData,
+    utilities.handleErrors(invController.updateEditInv))
 
 
 module.exports = router;

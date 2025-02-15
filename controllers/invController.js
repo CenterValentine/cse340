@@ -162,6 +162,7 @@ invCont.buildEditInv = async function (req, res, next) {
   const inventory_id = parseInt(req.params.inventoryId)
   let nav = await utilities.getNav()
   const invItemData = await invModel.getInventoryByInventoryId(inventory_id)
+  console.log('invItemData', invItemData)
   const invItem = invItemData[0]
   console.log('invItemData', invItemData)
   let classDrop = await utilities.buildClassificationDropdown(invItem.classification_id)
@@ -190,7 +191,6 @@ invCont.buildEditInv = async function (req, res, next) {
  * ************************** */
 invCont.updateEditInv = async function(req,res){
   console.log('in updateEditInv')
-   
   let nav = await utilities.getNav()
   const {
     inv_id,
@@ -205,8 +205,10 @@ invCont.updateEditInv = async function(req,res){
     inv_color,
     classification_id,
   } = req.body
+
+  console.log('updateEditInv req.body', req.body)
   const updateResult = await invModel.updateInventoryItem(
-    inv_id,  
+    inv_id,   
     inv_make,
     inv_model,
     inv_description,
@@ -216,7 +218,8 @@ invCont.updateEditInv = async function(req,res){
     inv_year,
     inv_miles,
     inv_color,
-    classification_id
+    classification_id,
+    
   )
 
   if (updateResult) {
@@ -224,13 +227,12 @@ invCont.updateEditInv = async function(req,res){
     req.flash("notice", `The ${itemName} was successfully updated.`)
     res.redirect("/inv/")
   } else {
-    const classificationSelect = await utilities.buildClassificationList(classification_id)
-    const itemName = `${inv_make} ${inv_model}`
+    const classDrop = await utilities.buildClassificationDropdown(classification_id)
     req.flash("notice", "Sorry, the insert failed.")
-    res.status(501).render("inventory/edit-inventory", {
-    title: "Edit " + itemName,
+    res.status(501).render("inventory/edit-inventory.ejs", {
+    title: `Edit ${inv_make} ${inv_model}`,
     nav,
-    classificationSelect: classificationSelect,
+    classDrop: classDrop,
     errors: null,
     inv_id,
     inv_make,
