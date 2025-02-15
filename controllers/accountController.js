@@ -166,7 +166,7 @@ async function updateAccountInfo(req, res, next){
   const {account_id, account_firstname, account_lastname, account_email} = req.body
   let nav = await utilities.getNav()
   const result = await accountModel.updateAccountInfo(account_id, account_firstname, account_lastname, account_email)
-  if(result.rows){
+  if(result){
 
   req.flash("notice", "Your account information has been updated."),
   res.render("account/account.ejs",{
@@ -207,7 +207,7 @@ try {
 
 const updateResult = await accountModel.updateAccountPassword(hashedPassword, account_id)
 console.log('updateResult:', updateResult)
-if (updateResult.rows) {
+if (updateResult) {
   req.flash('notice', `You\'re account password was succesfully updated.`)
   res.status(201).render("account/account.ejs", {
     title:"Account Management",
