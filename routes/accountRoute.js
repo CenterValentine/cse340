@@ -9,6 +9,12 @@ router.get("/",
   utilities.checkLogin,
   utilities.handleErrors(accountController.buildAccount))
 router.get("/login",utilities.handleErrors(accountController.buildLogin))
+router.post("/login", 
+      regValidate.loginRules(),
+      regValidate.checkLoginData,
+      utilities.handleErrors(accountController.accountLogin)
+          )
+router.get("/logout", utilities.handleErrors(accountController.accountLogout))
 router.get("/register", utilities.handleErrors(accountController.buildRegister))
 // Process the registration data
 router.post(
@@ -18,16 +24,19 @@ router.post(
     utilities.handleErrors(accountController.registerAccount)
   )
 
-  router.post(
-    "/login", 
-    (req, res, next) => {
-      console.log("Raw req.body:", req.body);
-      // console.log("Request Body Keys:", Object.keys(req.body));
-      next();
-    },
-    regValidate.loginRules(),
-    regValidate.checkLoginData,
-    utilities.handleErrors(accountController.accountLogin)
-  )
+router.get("/edit/:accountId", utilities.checkLogin
+, utilities.handleErrors(accountController.buildEditAccount))
+
+router.post("/update",
+    utilities.checkLogin,
+    regValidate.editAccountRules(),
+    regValidate.checkAccountData,
+    utilities.handleErrors(accountController.updateAccountInfo))
+    
+router.post("/update/password",
+    utilities.checkLogin,
+    regValidate.accountPasswordRules(),
+    regValidate.checkAccountPassword,
+    utilities.handleErrors(accountController.updateAccountPassword))
 
 module.exports = router;

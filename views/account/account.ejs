@@ -3,5 +3,20 @@
         <h1><%-title-%></h1>
         <%- messages() %>
     </div>
-    <p>You are logged in!</p>
+    <div>
+        <% switch (user.account_type) { case 'Client' : %>
+            <h2> Welcome <%-user.account_firstname-%></h2>
+            <p>You are logged in!</p>
+            <% break; 
+            case 'Admin':
+            case 'Employee': %>
+                <h2> Welcome <%-user.account_firstname-%></h2>
+                <p>You are logged in!</p>
+                <p><a href="/inv/">Manage Inventory</a></p>
+                <% break; default: break;} %>
+        <p><a href="/account/edit/<%-user.account_id%>">Update account information</a></p>
+
+
+
+    </div>
 </div>

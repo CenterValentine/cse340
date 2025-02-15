@@ -87,7 +87,7 @@ invCont.buildAddInv =  async function (req,res, next) {
 * *************************************** */
 // Reminder to self: next isn't needed because pass or failure is handled!
 invCont.addClass = async function(req,res){
-  console.log('in addClass')
+  // console.log('in addClass')
   const {classification_name} = req.body;
   const addResult = await invModel.addInventoryClassByName(classification_name)
   
@@ -114,7 +114,7 @@ invCont.addInv = async function(req,res){
   console.log('in addClass')
   const {classification_id,inv_make,inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color} = req.body;
   const addResult = await invModel.addInventoryItem(classification_id,inv_make,inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color)
-  console.log('addResult', addResult)
+  // console.log('addResult', addResult)
   if (addResult){
     let nav = await utilities.getNav()
     req.flash('notice',`The ${inv_color} ${inv_year} ${inv_make} ${inv_model} has been added successfully to inventory system.`)
@@ -157,14 +157,18 @@ invCont.getInventoryJSON = async function (req, res, next) {
   }
 }
 
+
+
+/* ***************************
+ *  Build Edit Inventory Page
+ * ************************** */
 invCont.buildEditInv = async function (req, res, next) {
   console.log('in buildEditInv')
   const inventory_id = parseInt(req.params.inventoryId)
   let nav = await utilities.getNav()
   const invItemData = await invModel.getInventoryByInventoryId(inventory_id)
-  console.log('invItemData', invItemData)
   const invItem = invItemData[0]
-  console.log('invItemData', invItemData)
+  // console.log('invItemData', invItemData)
   let classDrop = await utilities.buildClassificationDropdown(invItem.classification_id)
   const itemName = `${invItem.inv_make} ${invItem.inv_model}`
   res.render("./inventory/edit-inventory.ejs", {
@@ -190,7 +194,7 @@ invCont.buildEditInv = async function (req, res, next) {
  *  Update Inventory Data
  * ************************** */
 invCont.updateEditInv = async function(req,res){
-  console.log('in updateEditInv')
+  // console.log('in updateEditInv')
   let nav = await utilities.getNav()
   const {
     inv_id,
@@ -206,7 +210,7 @@ invCont.updateEditInv = async function(req,res){
     classification_id,
   } = req.body
 
-  console.log('updateEditInv req.body', req.body)
+  // console.log('updateEditInv req.body', req.body)
   const updateResult = await invModel.updateInventoryItem(
     inv_id,   
     inv_make,
@@ -249,5 +253,52 @@ invCont.updateEditInv = async function(req,res){
   }
 }
 
+/* ***************************
+ *  Build Delete Confirmation Page
+ * ************************** */
+invCont.buildDeleteInv = async function (req, res, next) {
+  console.log('in buildEditInv')
+  const inventory_id = parseInt(req.params.inventoryId)
+  let nav = await utilities.getNav()
+  const invItemData = await invModel.getInventoryByInventoryId(inventory_id)
+  console.log('invItemData', invItemData)
+  const invItem = invItemData[0]
+  // console.log('invItemData', invItemData)
+  let classDrop = await utilities.buildClassificationDropdown(invItem.classification_id)
+  res.render("./inventory/delete-confirm.ejs", {
+    title:  `Delete ${invItem.inv_make} ${invItem.inv_model}`,
+    nav,
+    errors: null,
+    classDrop,
+    inv_id: invItem.inv_id,
+    inv_make: invItem.inv_make,
+    inv_model: invItem.inv_model,
+    inv_year: invItem.inv_year,
+    inv_price: invItem.inv_price,
+    // classification_id: invItem.classification_id,
+  })
+}
+
+/* ***************************
+ *  Delete Inventory Data
+ * ************************** */
+invCont.deleteInv = async function(req,res){
+  console.log('in deleteInv')
+  const {
+    inv_id
+  } = req.body
+
+  console.log('deleteInv req.body', req.body)
+  const invIdInt = parseInt(inv_id)
+  const deleteResult = await invModel.deleteInventoryItem(invIdInt)
+  if (deleteResult) {
+    const deletedItemName = deleteResult.inv_make + " " + deleteResult.inv_model
+    req.flash("notice", `The ${deletedItemName} was successfully updated.`)
+    res.redirect("/inv/")
+  } else {
+    req.flash("notice", "Sorry, the deletion failed.")
+    res.redirect(`/inv/delete/${inv_id}`)
+  }
+}
 
 module.exports = invCont

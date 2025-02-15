@@ -159,13 +159,15 @@ Util.checkJWTToken = (req, res, next) => {
    jwt.verify(
     req.cookies.jwt,
     process.env.ACCESS_TOKEN_SECRET,
-    function (err, accountData) {
+    function (err, user) {
      if (err) {
       req.flash("Please log in")
       res.clearCookie("jwt")
+      res.locals.loggedin = 0
+      res.locals.user = ''
       return res.redirect("/account/login")
      }
-     res.locals.accountData = accountData
+     res.locals.user = user
      res.locals.loggedin = 1
      next()
     })
@@ -174,16 +176,53 @@ Util.checkJWTToken = (req, res, next) => {
   }
  }
 
+
+ /* ****************************************
+ *  Fail account authorization
+ * ************************************ */
+Util.accountFail = (req, res, next) => {
+  req.flash("notice", "Please log in.")
+  res.clearCookie("jwt")
+  res.locals.loggedin = 0
+  res.locals.user = ''
+  return res.redirect("/account/login")
+}
+
+
+ /* ****************************************
+ *  check Account Type for permissions
+ * if account type !admin and !employee, redirect + error to login page
+ * ************************************ */
+ Util.accountTypeCheck = (req, res, next) => {
+  try {
+    if(res.locals.loggedin && req.cookies.jwt && !(res.locals.user.account_type === 'Admin' || res.locals.user.account_type === 'Employee')){
+      req.flash("notice", "You are not have sufficient permission to access this resource. Please log into an authorized account.")
+      return res.redirect("/account/login")}
+      next()
+} catch (error) {
+  checkJWTToken(req, res, next)
+}
+}
+
  /* ****************************************
  *  Check Login
  * ************************************ */
  Util.checkLogin = (req, res, next) => {
-  if (res.locals.loggedin) {
+  console.log("Checking login")
+  try {
+  const decoded = jwt.verify(req.cookies.jwt, process.env.ACCESS_TOKEN_SECRET);
+  if (res.locals.loggedin && req.cookies.jwt && decoded) {
+    console.log("Token passed")
+    console.log("Checking decoded Token:", decoded);
+    res.locals.user = decoded
     next()
   } else {
-    req.flash("notice", "Please log in.")
-    return res.redirect("/account/login")
+    Util.accountFail(req, res, next)
   }
+} catch (error) {
+  Util.accountFail(req, res, next)
+}
+  
  }
  
 

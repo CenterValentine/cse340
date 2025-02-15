@@ -1,12 +1,9 @@
 const { Pool } = require("pg")
 require("dotenv").config()
 
-function toggleQueryConsole( message, object) {
-  if (true) {
+function toggleQueryConsole( message, object, report=false) {
+  if (report) {
     console.log(message, {object} )
-  }
-  else {
-    console.log("DB query fired and console is off")
   }
 
 
@@ -29,17 +26,17 @@ if (process.env.NODE_ENV == "development") {
 // Added for troubleshooting queries
 // during development
 module.exports = {
-  async query(text, params) {
+  async query(text, params, report=false) {
     try {
       const res = await pool.query(text, params)
-      toggleQueryConsole("executed query", { text, params })
+      toggleQueryConsole("executed query", { text, params },report)
       // console.log("executed query", { text })
 
       return res
     } catch (error) {
       toggleQueryConsole(
         "error in query",
-        { text, params, error: error.message }
+        { text, params, error: error.message },report
       )
       // console.error("error in query", { text })
       throw error
