@@ -4,7 +4,7 @@
     <%- messages() %>
   </div>
   <div>
-      <form>
+      <form action="/account/admin" method="post">
         <table>
           <thead>
             <tr>
@@ -48,12 +48,14 @@
 
                     </select>
                     
-                <% } else { %>
-
+                <% } else if (column == 'account_email') { %>
+                <input type="email" name="<%= column %>" value="<%=row[column] %>" pattern="^[\w.-]+@[\w.-]+\.[a-zA-Z]{2,6}$" required>
+                    <% } else { %>
                 <input
                   type="text"
-                  name="accounts[<%= rowIndex %>][<%= column %>]"
+                  name="<%= column %>"
                   value="<%= row[column] %>"
+                  required
                 />
                 <% } %>
               </td>
@@ -62,6 +64,7 @@
             <% }) %>
           </tbody>
         </table>
+        <button type="submit">Update</button>
       </form>
   </div>
 </div>

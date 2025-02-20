@@ -32,10 +32,24 @@ router.post(
 );
 
 router.get(
-  "/admin", 
+  "/admin",
   utilities.checkOwnership,
   utilities.handleErrors(accountController.buildAdminPanel)
 );
+
+router.post(
+  "/admin",
+  (req, res, next) => {
+    console.log("in admin route");
+    console.log("req.body: ", req.body);
+    console.log("req.params: ", req.params);
+    console.log("req.query: ", req.query);
+    next();
+  },
+  regValidate.adminUpdateRules(),
+  regValidate.checkadminUpdate,
+  utilities.handleErrors(accountController.processAdminPanel)
+)
 
 router.get(
   "/edit/:accountId",
