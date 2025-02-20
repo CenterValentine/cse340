@@ -226,4 +226,18 @@ if (updateResult) {
 }
 }
 
-module.exports = {buildRegister, registerAccount, buildLogin, accountLogin, accountLogout, buildAccount, buildEditAccount, updateAccountInfo, updateAccountPassword}
+async function buildAdminPanel(req, res, next){
+  let nav = await utilities.getNav()
+  const tableData = await accountModel.getAllAccounts()
+  console.log("in buildAdminPanel")
+  res.render('account/admin.ejs', {
+      title: 'Admin Panel',
+      nav: nav,
+      errors: null,
+      user: res.locals.user,
+      tableData: tableData
+  })
+  next()
+}
+
+module.exports = {buildRegister, registerAccount, buildLogin, accountLogin, accountLogout, buildAccount, buildEditAccount, updateAccountInfo, updateAccountPassword,buildAdminPanel }

@@ -1,5 +1,7 @@
+require("dotenv").config();
 const { Pool } = require("pg")
-require("dotenv").config()
+// console.log("NODE_ENV:", process.env.NODE_ENV);
+// console.log("DATABASE_URL:", process.env.DATABASE_URL);
 
 function toggleQueryConsole( message, object, report=false) {
   if (report) {
@@ -21,7 +23,14 @@ if (process.env.NODE_ENV == "development") {
     ssl: {
       rejectUnauthorized: false,
     },
-})
+    idleTimeoutMillis: 30000, 
+    connectionTimeoutMillis: 5000,
+    max: 10, 
+});
+
+pool.on("error", (err) => {
+  console.error("Unexpected error on idle client", err);
+});
 
 // Added for troubleshooting queries
 // during development

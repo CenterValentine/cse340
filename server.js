@@ -6,9 +6,11 @@
 /* ***********************
  * Require Statements
  *************************/
+require("dotenv").config();
+console.log("DATABASE_URL:", process.env.DATABASE_URL); // Check if URL is loading
 const express = require("express")
 const expressLayouts = require("express-ejs-layouts")
-const env = require("dotenv").config()
+
 const app = express()
 const session = require("express-session")
 const pool = require('./database/')
@@ -22,6 +24,8 @@ const catchErrorsRoute = require("./routes/errorRoute.js")
 const baseController = require("./controllers/baseController")
 const utilities = require("./utilities/index.js")
 
+
+console.log("DATABASE_URL:", process.env.DATABASE_URL); // Check if URL is loading
 /* ***********************
  * Middleware
  * ************************/

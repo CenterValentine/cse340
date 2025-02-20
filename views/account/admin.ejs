@@ -1,0 +1,30 @@
+<div>
+  <div>
+    <h1><%-title-%></h1>
+    <%- messages() %>
+  </div>
+  <div>
+    <table>
+        
+        <table>
+            <thead>
+                <tr>
+                    <% Object.keys(tableData[0]).forEach((column) => { %>
+                        <th class="column-header" data-column="<%= column %>"><%= column.replace(/_/g, " ") %></th>
+                    <% }) %>
+                </tr>
+            </thead>
+            <tbody>
+                <% tableData.forEach((row) => { %>
+                    <tr>
+                        <% Object.keys(row).forEach((column) => { %>
+                            <td data-column="<%= column %>"><%= row[column] %></td>
+                        <% }) %>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+        
+    </table>
+  </div>
+</div>

@@ -73,6 +73,26 @@ async function updateAccountPassword(account_id, account_password){
   }
 }
 
+async function getAllAccounts(){
+  try {
+const sql = "SELECT * FROM account"
+const result = await pool.query(sql)
+return result.rows
+  } catch (error){
+    return error.message
+  }
+}
+
+async function getAllAccountsByFilter(){
+  try {
+    const sql = "SELECT * FROM account WHERE account_type = 'Client'"
+    const result = await pool.query(sql)
+    return result.rows
+  } catch (error){
+    return error.message
+  }
+}
+
   
 
-module.exports = {registerAccount,checkExistingEmail, getAccountByEmail, getAccountById, updateAccountInfo, updateAccountPassword}
+module.exports = {registerAccount,checkExistingEmail, getAccountByEmail, getAccountById, updateAccountInfo, updateAccountPassword, getAllAccounts, getAllAccountsByFilter}
