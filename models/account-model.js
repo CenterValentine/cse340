@@ -85,7 +85,7 @@ return result.rows
 
 async function getAccountTypes(){
   try {
-    const sql = "SELECT account_type FROM account"
+    const sql = "SELECT account_type FROM account "
     const result = await pool.query(sql)
     return result.rows
   }

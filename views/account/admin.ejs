@@ -4,7 +4,6 @@
     <%- messages() %>
   </div>
   <div>
-    <table>
       <form>
         <table>
           <thead>
@@ -31,14 +30,22 @@
                 />
                 <span><%= row[column] %></span>
                 <% } else if (column === "account_type") { %>
+
+                    <% let newOptions = options;
+                     if (row[column] !== 'Owner' ) {newOptions = options.filter(option => option.account_type !== 'Owner');} %>
+
                 <select name="accounts[<%= rowIndex %>][<%= column %>]">
-                    <% options.forEach((accountType) => { 
-                        console.log(accountType.account_type)%>
+
+                   
+                     <% newOptions.forEach((accountType) => { %>
                         <option value="<%= accountType.account_type %>" 
-                          <% if (row[column] === accountType.account_type) { %> selected <% } %>>
+                          <% if (row[column] === accountType.account_type) { %> selected <% } %>
+                          <% if (row[column] === "Owner") { %> disabled <% } %>
+                          >
                           <%= accountType.account_type %>
                         </option>
                       <% }) %>
+
                     </select>
                     
                 <% } else { %>
@@ -56,6 +63,5 @@
           </tbody>
         </table>
       </form>
-    </table>
   </div>
 </div>
