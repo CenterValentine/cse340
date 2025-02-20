@@ -83,6 +83,18 @@ return result.rows
   }
 }
 
+async function getAccountTypes(){
+  try {
+    const sql = "SELECT account_type FROM account"
+    const result = await pool.query(sql)
+    return result.rows
+  }
+  catch (error){
+    return error.message
+  }
+
+}
+
 async function getAllAccountsByFilter(){
   try {
     const sql = "SELECT * FROM account WHERE account_type = 'Client'"
@@ -95,4 +107,4 @@ async function getAllAccountsByFilter(){
 
   
 
-module.exports = {registerAccount,checkExistingEmail, getAccountByEmail, getAccountById, updateAccountInfo, updateAccountPassword, getAllAccounts, getAllAccountsByFilter}
+module.exports = {registerAccount,checkExistingEmail, getAccountByEmail, getAccountById, updateAccountInfo, updateAccountPassword, getAllAccounts, getAccountTypes, getAllAccountsByFilter}

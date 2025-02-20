@@ -229,13 +229,15 @@ if (updateResult) {
 async function buildAdminPanel(req, res, next){
   let nav = await utilities.getNav()
   const tableData = await accountModel.getAllAccounts()
+  const options = await accountModel.getAccountTypes()
   console.log("in buildAdminPanel")
   res.render('account/admin.ejs', {
       title: 'Admin Panel',
       nav: nav,
       errors: null,
       user: res.locals.user,
-      tableData: tableData
+      tableData: tableData,
+      options: options
   })
   next()
 }

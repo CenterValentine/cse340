@@ -21,6 +21,7 @@
             <tr>
               <% Object.keys(row).forEach((column) => { %>
               <td data-column="<%= column %>">
+
                 <% if (column === "account_id") { %>
                 <input
                   type="hidden"
@@ -29,7 +30,16 @@
                   value="<%= row[column] %>"
                 />
                 <span><%= row[column] %></span>
-                <% } else { %>
+                <% } else if (column === "account_type") { %>
+                <select>
+                    <% options.map((accountType) => { %>
+                    <option
+                      value="<%= accountType %>">
+                        <%= accountType %> </option>
+                      
+                </select>
+                
+                <% else { %>
 
                 <input
                   type="text"
