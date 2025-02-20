@@ -5,26 +5,45 @@
   </div>
   <div>
     <table>
-        
+      <form>
         <table>
-            <thead>
-                <tr>
-                    <% Object.keys(tableData[0]).forEach((column) => { %>
-                        <th class="column-header" data-column="<%= column %>"><%= column.replace(/_/g, " ") %></th>
-                    <% }) %>
-                </tr>
-            </thead>
-            <tbody>
-                <% tableData.forEach((row) => { %>
-                    <tr>
-                        <% Object.keys(row).forEach((column) => { %>
-                            <td data-column="<%= column %>"><%= row[column] %></td>
-                        <% }) %>
-                    </tr>
-                <% }) %>
-            </tbody>
+          <thead>
+            <tr>
+              <% Object.keys(tableData[0]).forEach((column) => { %>
+              <th class="column-header" data-column="<%= column %>">
+                <%= column.replace(/_/g, " ") %>
+              </th>
+              <% }) %>
+            </tr>
+          </thead>
+          <tbody>
+            <% tableData.forEach((row, rowIndex) => { %>
+            <tr>
+              <% Object.keys(row).forEach((column) => { %>
+              <td data-column="<%= column %>">
+                <% if (column === "account_id") { %>
+                <input
+                  type="hidden"
+                  readonly
+                  name="accounts[<%= rowIndex %>][<%= column %>]"
+                  value="<%= row[column] %>"
+                />
+                <span><%= row[column] %></span>
+                <% } else { %>
+
+                <input
+                  type="text"
+                  name="accounts[<%= rowIndex %>][<%= column %>]"
+                  value="<%= row[column] %>"
+                />
+                <% } %>
+              </td>
+              <% }) %>
+            </tr>
+            <% }) %>
+          </tbody>
         </table>
-        
+      </form>
     </table>
   </div>
 </div>

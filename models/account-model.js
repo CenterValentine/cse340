@@ -72,10 +72,10 @@ async function updateAccountPassword(account_id, account_password){
       return error.message
   }
 }
-
+// omits password data
 async function getAllAccounts(){
   try {
-const sql = "SELECT * FROM account"
+    const sql = "SELECT account_id, account_firstname, account_lastname, account_email, account_type FROM account"; 
 const result = await pool.query(sql)
 return result.rows
   } catch (error){
