@@ -31,15 +31,17 @@
                 />
                 <span><%= row[column] %></span>
                 <% } else if (column === "account_type") { %>
-                <select>
-                    <% options.map((accountType) => { %>
-                    <option
-                      value="<%= accountType %>">
-                        <%= accountType %> </option>
-                      
-                </select>
-                
-                <% else { %>
+                <select name="accounts[<%= rowIndex %>][<%= column %>]">
+                    <% options.forEach((accountType) => { 
+                        console.log(accountType.account_type)%>
+                        <option value="<%= accountType.account_type %>" 
+                          <% if (row[column] === accountType.account_type) { %> selected <% } %>>
+                          <%= accountType.account_type %>
+                        </option>
+                      <% }) %>
+                    </select>
+                    
+                <% } else { %>
 
                 <input
                   type="text"
