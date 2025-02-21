@@ -33,23 +33,23 @@ router.post(
 
 router.get(
   "/admin",
+  utilities.checkLogin,
   utilities.checkOwnership,
   utilities.handleErrors(accountController.buildAdminPanel)
 );
 
 router.post(
   "/admin",
+  utilities.checkLogin,
+  utilities.checkOwnership,
   (req, res, next) => {
-    console.log("in admin route");
-    console.log("req.body: ", req.body);
-    console.log("req.params: ", req.params);
-    console.log("req.query: ", req.query);
+    console.log("Processing bulk update", req.body);
     next();
   },
   regValidate.adminUpdateRules(),
   regValidate.checkadminUpdate,
-  utilities.handleErrors(accountController.processAdminPanel)
-)
+  utilities.handleErrors(accountController.processAdminBulkUpdate)
+);
 
 router.get(
   "/edit/:accountId",

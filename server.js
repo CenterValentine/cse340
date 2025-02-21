@@ -7,7 +7,7 @@
  * Require Statements
  *************************/
 require("dotenv").config();
-console.log("DATABASE_URL:", process.env.DATABASE_URL); // Check if URL is loading
+// console.log("DATABASE_URL:", process.env.DATABASE_URL); // Check if URL is loading
 const express = require("express")
 const expressLayouts = require("express-ejs-layouts")
 

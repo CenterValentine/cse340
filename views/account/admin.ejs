@@ -4,6 +4,15 @@
     <%- messages() %>
   </div>
   <div>
+    <% if (errors) { %>
+        <ul class="notice">
+            <% errors.array().forEach(error=> { %>
+                <li>
+                    <%= error.msg %>
+                </li>
+                <% }) %>
+        </ul>
+        <% } %>
       <form action="/account/admin" method="post">
         <table>
           <thead>
@@ -32,15 +41,19 @@
                 <% } else if (column === "account_type") { %>
 
                     <% let newOptions = options;
-                     if (row[column] !== 'Owner' ) {newOptions = options.filter(option => option.account_type !== 'Owner');} %>
+                     if (row[column] !== 'Owner' ) {newOptions = options.filter(option => option.account_type !== 'Owner');%>
+                     <select name="accounts[<%= rowIndex %>][<%= column %>]">
+                     <% } else { %>
+                     <select name="accounts[<%= rowIndex %>][<%= column %>]" value="<%= row[column] %>">
+                    <% } %>
 
-                <select name="accounts[<%= rowIndex %>][<%= column %>]">
+                
 
                    
                      <% newOptions.forEach((accountType) => { %>
                         <option value="<%= accountType.account_type %>" 
                           <% if (row[column] === accountType.account_type) { %> selected <% } %>
-                          <% if (row[column] === "Owner") { %> disabled <% } %>
+                          <% if (row[column] === "Owner" && accountType.account_type !== "Owner") { %> disabled <% } %>
                           >
                           <%= accountType.account_type %>
                         </option>
@@ -49,11 +62,11 @@
                     </select>
                     
                 <% } else if (column == 'account_email') { %>
-                <input type="email" name="<%= column %>" value="<%=row[column] %>" pattern="^[\w.-]+@[\w.-]+\.[a-zA-Z]{2,6}$" required>
+                <input type="email" name="accounts[<%= rowIndex %>][<%= column %>]" value="<%=row[column] %>" pattern="^[\w.-]+@[\w.-]+\.[a-zA-Z]{2,6}$" required>
                     <% } else { %>
                 <input
                   type="text"
-                  name="<%= column %>"
+                  name="accounts[<%= rowIndex %>][<%= column %>]"
                   value="<%= row[column] %>"
                   required
                 />

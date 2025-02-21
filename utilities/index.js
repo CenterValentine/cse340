@@ -263,4 +263,11 @@ Util.checkOwnership = (req, res, next) => {
   }
 };
 
+Util.sortUsersById = async function (data){
+  // console.log("Data to be sorted: ", data);
+  sortedData = await data.sort((a, b) => a.account_id - b.account_id);
+  // console.log("Sorted Data: ", sortedData);
+  return sortedData;
+}
+
 module.exports = Util;
