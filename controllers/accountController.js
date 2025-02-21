@@ -191,8 +191,7 @@ async function updateAccountInfo(req, res, next) {
     account_id,
     account_firstname,
     account_lastname,
-    account_email,
-    account_type
+    account_email
   );
   if (result) {
     req.flash("notice", "Your account information has been updated."),
